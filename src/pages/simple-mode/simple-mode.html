@@ -1,0 +1,57 @@
+<ion-content padding>
+    <ng-container *ngIf="roomNo">
+        <h3>Esta es la room {{roomNo}}</h3>
+    </ng-container>
+
+    <ion-list>
+
+        <ion-item>
+            <ion-label stacked>Nombre</ion-label>
+            <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Puso</ion-label>
+            <ion-input [(ngModel)]="puso" type="number"></ion-input>
+        </ion-item>
+
+    </ion-list>
+    <button ion-button (click)="agregar()" color="dark">Agregar</button>
+
+    <hr>
+
+    <ion-list *ngIf="room">
+        <ion-item-sliding *ngFor="let participant of room.participants">
+            <ion-item>
+                <ion-row>
+                    <ion-col col-12>
+                        <h2>{{participant.alias}}</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-4>
+                        <p>Puso: ${{participant.paid}}</p>
+                    </ion-col>
+                    <ion-col col-4>
+                        <p>Debe: ${{participant.hasToPay}}</p>
+                    </ion-col>
+                    <ion-col col-4>
+                        <p>Recibe: ${{participant.hasToGet}}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+            <ion-item-options side="left">
+                <button ion-button color="secondary">
+                      <ion-icon name="ios-create-outline"></ion-icon>
+              </button>
+            </ion-item-options>
+            <ion-item-options side="right">
+                <button ion-button color="danger">
+                  <ion-icon name="ios-trash"></ion-icon>
+              </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+
+</ion-content>
