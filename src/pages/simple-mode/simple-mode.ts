@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   Events,
-  App
+  App,
+  ViewController
 } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
 
@@ -32,13 +33,17 @@ export class SimpleModePage {
 
   constructor(
     public navCtrl: NavController,
+    public viewCtrl: ViewController,
     public socketProvider: SocketProvider,
     public navParams: NavParams,
     public events: Events,
     private app: App
   ) {
     events.subscribe('updatedRoom', pRoom => {
+      // console.log(pRoom.room);
+
       this.room = pRoom.room;
+      console.log(this.room);
     });
 
     if (this.navParams.get('roomNo')) {
@@ -51,20 +56,27 @@ export class SimpleModePage {
     console.log(this.roomNo);
   }
 
+  volver() {
+    this.navCtrl.pop();
+    // this.navCtrl.remove(this.viewCtrl.index);
+  }
   agregar() {
     this.socketProvider.addSimpleParticipant(
       this.roomNo,
       this.nombre,
       this.puso
     );
-    // this.events.publish('newSimpleParticipant');
-    // this.socketProvider.socket.emit('newSimpleParticipant', {
-    //   roomNo: this.roomNo,
-    //   alias: this.nombre,
-    //   paid: parseInt(this.puso)
-    // });
 
     this.nombre = '';
     this.puso = '';
+  }
+
+  eliminar(pId) {
+    this.socketProvider.delSimpleParticipant(pId, this.roomNo);
+
+    //no anduvo, hice la modificiación del id en el back. Verificar que eso funcione bien
+    //Está haciendo las conexiones dos veces, nushe que pasa, y cada vez que agrego a un nuevo participante trae el obj dos veces.
+    //Acordate que hice el repo paralelo que apunta a otro localhost para probar el uso del socket y las rooms
+    //   ionic serve -p 8002 --dev-logger-port 8103
   }
 }

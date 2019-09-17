@@ -29,6 +29,7 @@ export class SocketProvider {
   //Emmiting events to the Front
   goToRoom(pData) {
     this.events.publish('goToRoom', { roomNo: pData });
+    console.log(pData);
   }
   updatedRoom(pData) {
     this.events.publish('updatedRoom', { room: pData });
@@ -43,6 +44,12 @@ export class SocketProvider {
       roomNo: pRoomNo,
       alias: pAlias,
       paid: parseInt(pPaid)
+    });
+  }
+  delSimpleParticipant(pId, pRoomNo) {
+    this.socket.emit('delSimpleParticipant', {
+      id: pId,
+      roomNo: pRoomNo
     });
   }
 }

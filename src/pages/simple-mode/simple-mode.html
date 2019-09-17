@@ -1,5 +1,6 @@
 <ion-content padding>
     <ng-container *ngIf="roomNo">
+        <button ion-button (click)="volver()">Volver</button>
         <h3>Esta es la room {{roomNo}}</h3>
     </ng-container>
 
@@ -46,7 +47,7 @@
               </button>
             </ion-item-options>
             <ion-item-options side="right">
-                <button ion-button color="danger">
+                <button (click)="eliminar(participant.id)" ion-button color="danger">
                   <ion-icon name="ios-trash"></ion-icon>
               </button>
             </ion-item-options>
