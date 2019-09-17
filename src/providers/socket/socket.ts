@@ -15,6 +15,10 @@ export class SocketProvider {
 
   constructor(public events: Events) {
     this.socket = socketIo('http://localhost:3000');
+    console.log('Este es el socket');
+
+    console.log(this.socket);
+
     this.socket.on('hello', data => console.log(data));
 
     //Listening Frontend
@@ -37,7 +41,9 @@ export class SocketProvider {
 
   //Emmiting events to the Server
   newSimpleRoom() {
-    this.socket.emit('newSimpleRoom');
+    this.socket.emit('newSimpleRoom', {
+      socketID: this.socket.id
+    });
   }
   addSimpleParticipant(pRoomNo, pAlias, pPaid) {
     this.socket.emit('newSimpleParticipant', {
