@@ -52,6 +52,14 @@ export class SocketProvider {
       paid: parseInt(pPaid)
     });
   }
+  modSimpleParticipant(pRoomNo, pId, pAlias, pPaid) {
+    this.socket.emit('modSimpleParticipant', {
+      roomNo: pRoomNo,
+      id: pId,
+      alias: pAlias,
+      paid: parseInt(pPaid)
+    });
+  }
   delSimpleParticipant(pId, pRoomNo) {
     this.socket.emit('delSimpleParticipant', {
       id: pId,

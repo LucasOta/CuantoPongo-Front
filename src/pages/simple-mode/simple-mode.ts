@@ -5,7 +5,8 @@ import {
   NavParams,
   Events,
   App,
-  ViewController
+  ViewController,
+  AlertController
 } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
 
@@ -37,7 +38,8 @@ export class SimpleModePage {
     public socketProvider: SocketProvider,
     public navParams: NavParams,
     public events: Events,
-    private app: App
+    private app: App,
+    private alertCtrl: AlertController
   ) {
     events.subscribe('updatedRoom', pRoom => {
       // console.log(pRoom.room);
@@ -51,6 +53,10 @@ export class SimpleModePage {
     }
   }
 
+  ionViewDidLeave() {
+    this.events.unsubscribe('updatedRoom');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad SimpleModePage');
     console.log(this.roomNo);
@@ -60,7 +66,109 @@ export class SimpleModePage {
     this.navCtrl.pop();
     // this.navCtrl.remove(this.viewCtrl.index);
   }
-  agregar() {
+
+  async agregar() {
+    const alert = await this.alertCtrl.create({
+      inputs: [
+        {
+          name: 'nombre',
+          type: 'text',
+          placeholder: 'Nombre'
+        },
+        {
+          name: 'puso',
+          type: 'number',
+          placeholder: '$'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelar');
+          }
+        },
+        {
+          text: 'Agregar',
+          handler: data => {
+            console.log(data);
+            if (data.nombre.lenght === 0) {
+              return;
+            }
+            if (data.puso.lenght === 0) {
+              data.puso = 0;
+            }
+            this.socketProvider.addSimpleParticipant(
+              this.roomNo,
+              data.nombre,
+              data.puso
+            );
+          }
+        }
+      ]
+    });
+
+    alert.present();
+  }
+
+  async editar(pId) {
+    let aux = this.room.participants.findIndex(existeRoom);
+    function existeRoom(element: any) {
+      return element.id == pId;
+    }
+
+    if (aux != -1) {
+      const alert = await this.alertCtrl.create({
+        inputs: [
+          {
+            name: 'nombre',
+            type: 'text',
+            placeholder: 'Nombre',
+            value: this.room.participants[aux].alias
+          },
+          {
+            name: 'puso',
+            type: 'number',
+            placeholder: '$',
+            value: this.room.participants[aux].paid
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancelar');
+            }
+          },
+          {
+            text: 'Modificar',
+            handler: data => {
+              console.log(data);
+              if (data.nombre.lenght === 0) {
+                return;
+              }
+              if (data.puso.lenght === 0) {
+                data.puso = 0;
+              }
+              this.socketProvider.modSimpleParticipant(
+                this.roomNo,
+                aux,
+                data.nombre,
+                data.puso
+              );
+            }
+          }
+        ]
+      });
+      alert.present();
+    } else {
+      // Mandar mensaje o algo diciendo que la room no existe
+    }
+  }
+
+  _agregar() {
     this.socketProvider.addSimpleParticipant(
       this.roomNo,
       this.nombre,
