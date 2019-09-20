@@ -6,7 +6,8 @@ import {
   Events,
   App,
   ViewController,
-  AlertController
+  AlertController,
+  ToastController
 } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
 
@@ -39,7 +40,8 @@ export class SimpleModePage {
     public navParams: NavParams,
     public events: Events,
     private app: App,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) {
     events.subscribe('updatedRoom', pRoom => {
       // console.log(pRoom.room);
@@ -93,17 +95,19 @@ export class SimpleModePage {
           text: 'Agregar',
           handler: data => {
             console.log(data);
-            if (data.nombre.lenght === 0) {
-              return;
+            if (data.nombre == '') {
+              this.showErrorToast();
+              return false;
+            } else {
+              if (data.puso == '') {
+                data.puso = '0';
+              }
+              this.socketProvider.addSimpleParticipant(
+                this.roomNo,
+                data.nombre,
+                data.puso
+              );
             }
-            if (data.puso.lenght === 0) {
-              data.puso = 0;
-            }
-            this.socketProvider.addSimpleParticipant(
-              this.roomNo,
-              data.nombre,
-              data.puso
-            );
           }
         }
       ]
@@ -146,18 +150,20 @@ export class SimpleModePage {
             text: 'Modificar',
             handler: data => {
               console.log(data);
-              if (data.nombre.lenght === 0) {
-                return;
+              if (data.nombre == '') {
+                this.showErrorToast();
+                return false;
+              } else {
+                if (data.puso.lenght == '') {
+                  data.puso = '0';
+                }
+                this.socketProvider.modSimpleParticipant(
+                  this.roomNo,
+                  pId,
+                  data.nombre,
+                  data.puso
+                );
               }
-              if (data.puso.lenght === 0) {
-                data.puso = 0;
-              }
-              this.socketProvider.modSimpleParticipant(
-                this.roomNo,
-                aux,
-                data.nombre,
-                data.puso
-              );
             }
           }
         ]
@@ -182,9 +188,23 @@ export class SimpleModePage {
   eliminar(pId) {
     this.socketProvider.delSimpleParticipant(pId, this.roomNo);
 
-    //no anduvo, hice la modificiación del id en el back. Verificar que eso funcione bien
-    //Está haciendo las conexiones dos veces, nushe que pasa, y cada vez que agrego a un nuevo participante trae el obj dos veces.
-    //Acordate que hice el repo paralelo que apunta a otro localhost para probar el uso del socket y las rooms
+    //Hasta ahora logré hacer el abm de los participantes
+    // Hay que testear, la modificación a veces no funca
+    //Faltan validaciones, UI, y listorti el modo simple
     //   ionic serve -p 8002 --dev-logger-port 8103
+  }
+
+  showErrorToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Completar campo nombre',
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 }
