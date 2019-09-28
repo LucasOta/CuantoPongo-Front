@@ -1,3 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Quicksand&display=swap');
 page-home {
-
+    h1 {
+        font-family: 'Comfortaa', cursive;
+        font-size: 3em;
+    }
+    ion-content {
+        background-color: #1E1E1E !important;
+        background-image: linear-gradient(#1FC9FD8C, #1E1E1E 70%, #000) !important;
+    }
+    ion-grid {
+        padding: 0 !important;
+    }
+    ion-col {
+        padding: 0 !important;
+    }
+    .col {
+        padding: 0 !important;
+    }
+    .title_container {
+        height: 50vh;
+        padding-top: 25%;
+        color: #e1dddd;
+    }
+    .title_container p {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.5em;
+    }
+    .mode_container {
+        height: 50vh;
+        // margin-right: -10%;
+        // padding-right: 5%;
+        // border-top-left-radius: 25px;
+        // background-image: linear-gradient(-45deg, #1FC9FD8C, #FC006182);
+        // box-shadow: -5px 0px 5px #0000004a;
+    }
+    ion-card {
+        position: relative;
+        text-align: center;
+        height: 35vh;
+        border-radius: 10px !important;
+        // box-shadow: 4px 6px 5px #0000006b;
+        box-shadow: -3px 6px 8px 0 rgba(0, 0, 0, 0.56), 0 3px 1px -2px rgb(0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0.12)!important;
+        background: none !important;
+        background-image: linear-gradient(-45deg, #1FC9FD8C, #FC006182) !important;
+    }
+    ion-card img {
+        height: 100%;
+        opacity: 0.2;
+        filter: brightness(0.6);
+    }
+    .card-title {
+        position: absolute;
+        top: 15%;
+        font-size: 1.7em;
+        width: 100%;
+        font-weight: bold;
+        color: #fff;
+        font-family: 'Quicksand', sans-serif;
+    }
+    .card-subtitle {
+        font-size: 1.0em;
+        position: absolute;
+        top: 45%;
+        width: 100%;
+        color: #fff;
+        padding: 3%
+    }
 }

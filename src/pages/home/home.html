@@ -1,14 +1,37 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>
-            Cuanto Pongo?
-        </ion-title>
-    </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-    Cuánto Pongo?
-    <p>
-        <button ion-button (click)="newSimpleRoom()" color="dark">New Simple Room</button>
+    <div class="title_container animated fadeIn">
+        <h1>¿Cuánto <br> Pongo?</h1>
+        <p>No más matemática después de la cerveza.</p>
+
+    </div>
+
+    <div class="mode_container">
+        <ion-grid>
+            <ion-row>
+
+                <ion-col col-6>
+                    <ion-card class="animated slideInRight" (click)="newSimpleRoom()">
+                        <img src="assets/imgs/bg_Simp.jpg" />
+                        <div class="card-title">Simple</div>
+                        <div class="card-subtitle">Utilice este modo si todos los participantes de la reunión consumieron lo mismo</div>
+                    </ion-card>
+                </ion-col>
+
+                <ion-col col-6>
+                    <ion-card class="animated slideInRight" (click)="newSimpleRoom()">
+                        <img src="assets/imgs/bg_Diff.jpg" />
+                        <div class="card-title">Diferenciado</div>
+                        <div class="card-subtitle">¿Vegetariano en el grupo? ¿Algunos no beben alcohol? No es problema! Utilice este modo para distribuir los gastos!</div>
+                    </ion-card>
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
+    </div>
+    <!-- <p>
+        <button ion-button (click)="newSimpleRoom()" color="dark">newSimpleRoom</button>
     </p>
+    <p>
+        <button ion-button (click)="newSimpleRoom()" color="dark">Modo Diferenciado</button>
+    </p> -->
 </ion-content>
