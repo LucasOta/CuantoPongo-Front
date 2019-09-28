@@ -174,17 +174,6 @@ export class SimpleModePage {
     }
   }
 
-  _agregar() {
-    this.socketProvider.addSimpleParticipant(
-      this.roomNo,
-      this.nombre,
-      this.puso
-    );
-
-    this.nombre = '';
-    this.puso = '';
-  }
-
   eliminar(pId) {
     this.socketProvider.delSimpleParticipant(pId, this.roomNo);
 
@@ -192,6 +181,25 @@ export class SimpleModePage {
     // Hay que testear, la modificación a veces no funca
     //Faltan validaciones, UI, y listorti el modo simple
     //   ionic serve -p 8002 --dev-logger-port 8103
+  }
+
+  compartir() {
+    let newVariable: any;
+
+    newVariable = window.navigator;
+
+    if (newVariable && newVariable.share) {
+      newVariable
+        .share({
+          title: 'title',
+          text: 'description',
+          url: 'https://soch.in//'
+        })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing', error));
+    } else {
+      alert('share not supported');
+    }
   }
 
   showErrorToast() {
