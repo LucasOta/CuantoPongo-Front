@@ -1,67 +1,62 @@
 <ion-content padding>
     <ng-container *ngIf="roomNo">
-        <button ion-button (click)="volver()">Volver</button>
-        <h3>Esta es la room {{roomNo}}</h3>
+        <div class="gradient_1 top-container shadow">
+            <button style="display: none" ion-button (click)="volver()">
+        <ion-icon name="arrow-dropleft"></ion-icon>
+      </button>
+            <!-- <h3>Título de la room {{ roomNo }}</h3> -->
+            <h3>Nombre de la lista</h3>
+            <p *ngIf="room">Total ${{ room.total }}</p>
+        </div>
     </ng-container>
 
-    <!-- <ion-list>
-
-        <ion-item>
-            <ion-label stacked>Nombre</ion-label>
-            <ion-input [(ngModel)]="nombre" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label stacked>Puso</ion-label>
-            <ion-input [(ngModel)]="puso" type="number"></ion-input>
-        </ion-item>
-
-    </ion-list>
-    <button ion-button (click)="agregar()" color="dark">Agregar</button>
-
-    <hr> -->
-
     <ion-list *ngIf="room">
-        <ion-item-sliding *ngFor="let participant of room.participants">
+        <ion-item-sliding class="shadow animated fadeIn" *ngFor="let participant of room.participants">
             <ion-item>
                 <ion-row>
                     <ion-col col-12>
-                        <h2>{{participant.alias}}</h2>
+                        <h2 style="color: #fff;">{{ participant.alias }}</h2>
                     </ion-col>
                 </ion-row>
                 <ion-row>
-                    <ion-col col-4>
-                        <p>Puso: ${{participant.paid | number:"1.0-2"}}</p>
+                    <ion-col col-6>
+                        <p style="color: #c1baba;">
+                            Puso: ${{ participant.paid | number: '1.0-2' }}
+                        </p>
                     </ion-col>
-                    <ion-col col-4>
-                        <p>Debe: ${{participant.hasToPay | number:"1.0-2"}}</p>
+                    <ion-col col-6 *ngIf="participant.hasToPay > 0">
+                        <p style="color: #ff9090;">
+                            Debe: ${{ participant.hasToPay | number: '1.0-2' }}
+                        </p>
                     </ion-col>
-                    <ion-col col-4>
-                        <p>Recibe: ${{participant.hasToGet | number:"1.0-2"}}</p>
+                    <ion-col col-6 *ngIf="participant.hasToGet > 0">
+                        <p style="color: #a5e18ce3;">
+                            Recibe: ${{ participant.hasToGet | number: '1.0-2' }}
+                        </p>
                     </ion-col>
                 </ion-row>
             </ion-item>
             <ion-item-options side="left">
                 <button (click)="editar(participant.id)" ion-button color="secondary">
-                      <ion-icon name="ios-create-outline"></ion-icon>
-              </button>
+          <ion-icon name="ios-create-outline"></ion-icon>
+        </button>
             </ion-item-options>
             <ion-item-options side="right">
                 <button (click)="eliminar(participant.id)" ion-button color="danger">
-                  <ion-icon name="ios-trash"></ion-icon>
-              </button>
+          <ion-icon name="ios-trash"></ion-icon>
+        </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
 
-
-
     <ion-fab left bottom>
-        <button (click)="compartir()" ion-fab color="primary"><ion-icon name="ios-link-outline"></ion-icon></button>
+        <button class="gradient_1" (click)="compartir()" ion-fab color="primary">
+      <ion-icon name="ios-link-outline"></ion-icon>
+    </button>
     </ion-fab>
     <ion-fab right bottom>
-        <button (click)="agregar()" ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+        <button class="gradient_1" (click)="agregar()" ion-fab color="primary">
+      <ion-icon name="add"></ion-icon>
+    </button>
     </ion-fab>
-
-
 </ion-content>

@@ -12,6 +12,76 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Quicksand&display=swap');
 .scroll-content {
     padding: 0;
+}
+
+//Shadow
+.shadow {
+    box-shadow: -3px 6px 8px 0 rgba(0, 0, 0, 0.56), 0 3px 1px -2px black, 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+// Alert
+.alert-wrapper {
+    border-radius: 15px !important;
+    background-color: #3a466a !important;
+    box-shadow: -3px 6px 8px 0 rgba(0, 0, 0, 0.56), 0 3px 1px -2px black, 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.alert-title {
+    color: #c1c3c7;
+}
+
+.alert-sub-title {
+    color: #bbb5b5;
+}
+
+.alert-md .alert-input {
+    border-bottom: 1px solid #a49999 !important;
+    color: #fff !important;
+}
+
+.alert_cancel {
+    color: #ff9090 !important;
+}
+
+.alert_add {
+    color: #a5e18ce3 !important;
+}
+
+.alert_simp_room .alert-wrapper {
+    padding-top: 7%;
+}
+
+.alert_simp_room .alert-head {
+    display: none;
+}
+
+//Toasts
+.toast_error .toast-wrapper .toast-container {
+    background-image: linear-gradient(-45deg, #ae1a5fcf, #e14949) !important;
+}
+
+.toast_error .toast-wrapper {
+    background: #f9f9f9 !important;
+}
+
+.toast-wrapper {
+    border-radius: 10px;
+}
+
+.toast-top .toast-container {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.toast-bottom .toast-container {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.toast_succesful .toast-bottom .toast-container {
+    background-image: linear-gradient(-45deg, #1ffdcf8c, #38e83661) !important;
 }

@@ -71,6 +71,7 @@ export class SimpleModePage {
 
   async agregar() {
     const alert = await this.alertCtrl.create({
+      cssClass: 'alert_simp_room',
       inputs: [
         {
           name: 'nombre',
@@ -87,16 +88,18 @@ export class SimpleModePage {
         {
           text: 'Cancelar',
           role: 'cancel',
+          cssClass: 'alert_cancel',
           handler: () => {
             console.log('Cancelar');
           }
         },
         {
           text: 'Agregar',
+          cssClass: 'alert_add',
           handler: data => {
             console.log(data);
             if (data.nombre == '') {
-              this.showErrorToast();
+              this.showErrorToast('Completar campo nombre', 'top');
               return false;
             } else {
               if (data.puso == '') {
@@ -142,16 +145,20 @@ export class SimpleModePage {
           {
             text: 'Cancelar',
             role: 'cancel',
+            cssClass: 'alert_cancel',
+
             handler: () => {
               console.log('Cancelar');
             }
           },
           {
             text: 'Modificar',
+            cssClass: 'alert_add',
+
             handler: data => {
               console.log(data);
               if (data.nombre == '') {
-                this.showErrorToast();
+                this.showErrorToast('Completar campo nombre', 'top');
                 return false;
               } else {
                 if (data.puso.lenght == '') {
@@ -176,37 +183,44 @@ export class SimpleModePage {
 
   eliminar(pId) {
     this.socketProvider.delSimpleParticipant(pId, this.roomNo);
-
-    //Hasta ahora logré hacer el abm de los participantes
-    // Hay que testear, la modificación a veces no funca
-    //Faltan validaciones, UI, y listorti el modo simple
-    //   ionic serve -p 8002 --dev-logger-port 8103
   }
 
-  compartir() {
-    let newVariable: any;
-
-    newVariable = window.navigator;
-
-    if (newVariable && newVariable.share) {
-      newVariable
-        .share({
-          title: 'title',
-          text: 'description',
-          url: 'https://soch.in//'
-        })
-        .then(() => console.log('Successful share'))
-        .catch(error => console.log('Error sharing', error));
-    } else {
-      alert('share not supported');
+  async compartir() {
+    try {
+      // Hay que preguntar primero si es mobile o browser antes del copiado
+      // await navigator.clipboard.writeText('Hay que pegar el número de room'); //IMPORTANTEEEEEEEEEEEEEEEE
+      this.showSuccesfulToast(
+        '¡Link copiado! Compártelo con tus amigos.',
+        'bottom'
+      );
+    } catch (err) {
+      this.showErrorToast(
+        'Ups, algo no anduvo bien, intenta nuevamente.',
+        'bottom'
+      );
     }
   }
 
-  showErrorToast() {
+  showErrorToast(msj: string, pos: string) {
     let toast = this.toastCtrl.create({
-      message: 'Completar campo nombre',
+      message: msj,
+      duration: 1500,
+      position: pos,
+      cssClass: 'toast_error'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+  showSuccesfulToast(msj: string, pos: string) {
+    let toast = this.toastCtrl.create({
+      message: msj,
       duration: 3000,
-      position: 'top'
+      position: pos,
+      cssClass: 'toast_succesful'
     });
 
     toast.onDidDismiss(() => {

@@ -1,3 +1,35 @@
 page-simple-mode {
-
+    h3 {
+        font-family: 'Quicksand', sans-serif;
+    }
+    ion-content {
+        background-color: #1e1e1e !important;
+        background-image: linear-gradient(#1e1e1e 70%, #000) !important;
+    }
+    ion-item-sliding {
+        border-radius: 10px;
+        margin: 10px 0;
+        // background-color: rgba(0, 0, 0, 0) !important;
+        background-image: linear-gradient(to left, #1e1e1e, #1e1e1eba) !important;
+    }
+    ion-item {
+        background-image: linear-gradient(to left, #1e1e1e, #1e1e1eba) !important;
+    }
+    ion-list {
+        padding: 16px !important;
+    }
+    .item-inner {
+        border: none !important;
+    }
+    .top-container {
+        // background-image: linear-gradient(-45deg, #1fc9fd8c, #fc006182) !important;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        padding: 20px;
+        text-align: center;
+        color: #fff;
+    }
+    .scroll-content {
+        padding: 0 !important;
+    }
 }

@@ -2,12 +2,12 @@
 // http://ionicframework.com/docs/theming/
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
-$font-path: "../assets/fonts";
+$font-path: '../assets/fonts';
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
-@import "ionic.globals";
+@import 'ionic.globals';
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -16,6 +16,10 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 // Named Color Variables
 // --------------------------------------------------
+.gradient_1 {
+    background-image: linear-gradient(-45deg, #1fc9fd8c, #fc006182) !important;
+}
+
 // Named colors makes it easy to reuse colors on various components.
 // It's highly recommended to change the default colors
 // to match your app's branding. Ionic uses a Sass map of
@@ -37,35 +41,13 @@ $colors: ( primary: #488aff, secondary: #32db64, danger: #f53d3d, light: #f4f4f4
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
-@import "ionic.theme.default";
+@import 'ionic.theme.default';
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
-@import "ionic.ionicons";
+@import 'ionic.ionicons';
 // Fonts
 // --------------------------------------------------
-@import "roboto";
-@import "noto-sans";
-// @font-face {
-//     font-family: 'Comfortaa', cursive;
-//     font-size: normal;
-//     font-weight: 400;
-//     src: url('../assets/fonts/Comfortaa/Comfortaa-Regular.ttf')
-// }
-// @font-face {
-//     font-family: 'Comfortaa', cursive;
-//     font-size: semi-bold;
-//     font-weight: 600;
-//     src: url('../assets/fonts/Comfortaa/Comfortaa-SemiBold.ttf');
-// }
-// @font-face {
-//     font-family: 'Comfortaa', cursive;
-//     font-size: bold;
-//     font-weight: 700;
-//     src: url('../assets/fonts/Comfortaa/Comfortaa-Bold.ttf')
-// }
-// $font-family-base: 'Comfortaa';
-// h1 {
-//     font-family: 'Comfortaa', cursive;
-// }
+@import 'roboto';
+@import 'noto-sans';
