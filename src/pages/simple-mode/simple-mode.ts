@@ -19,14 +19,15 @@ import { SocketProvider } from '../../providers/socket/socket';
  */
 
 @IonicPage({
-  segment: 'simple/:roomNo'
+  segment: 'simple/:roomID'
 })
 @Component({
   selector: 'page-simple-mode',
   templateUrl: 'simple-mode.html'
 })
 export class SimpleModePage {
-  private roomNo: number;
+  roomID: number;
+  roomName: string;
 
   nombre;
   puso;
@@ -43,25 +44,37 @@ export class SimpleModePage {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {
-    events.subscribe('updatedRoom', pRoom => {
-      // console.log(pRoom.room);
+    this.roomName = 'Hubo algún problema con el nombre, pero este se la banca';
 
+    events.subscribe('updatedRoom', pRoom => {
       this.room = pRoom.room;
-      console.log(this.room);
+      this.roomName = pRoom.room.name;
     });
 
-    if (this.navParams.get('roomNo')) {
-      this.roomNo = this.navParams.get('roomNo');
+    if (this.navParams.get('roomID')) {
+      this.roomID = parseInt(this.navParams.get('roomID'));
     }
+    // if (this.navParams.get('roomName')) {
+    //   this.roomName = this.navParams.get('roomName');
+    // }
   }
 
   ionViewDidLeave() {
     this.events.unsubscribe('updatedRoom');
+    this.socketProvider.leaveSimpleRoom(this.roomID);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SimpleModePage');
-    console.log(this.roomNo);
+    console.log(this.roomID);
+    // if (this.roomName && this.roomID) {
+    //   this.socketProvider.setSimpleRoomName(this.roomID, this.roomName);
+    // }
+    this.socketProvider.roomID = this.roomID.toString();
+    this.socketProvider.joinSimpleRoom(this.roomID);
+    setTimeout(() => {
+      this.socketProvider.getUpdatedSimpleRoom();
+    }, 500);
   }
 
   volver() {
@@ -105,11 +118,7 @@ export class SimpleModePage {
               if (data.puso == '') {
                 data.puso = '0';
               }
-              this.socketProvider.addSimpleParticipant(
-                this.roomNo,
-                data.nombre,
-                data.puso
-              );
+              this.socketProvider.addSimpleParticipant(data.nombre, data.puso);
             }
           }
         }
@@ -165,7 +174,6 @@ export class SimpleModePage {
                   data.puso = '0';
                 }
                 this.socketProvider.modSimpleParticipant(
-                  this.roomNo,
                   pId,
                   data.nombre,
                   data.puso
@@ -182,7 +190,7 @@ export class SimpleModePage {
   }
 
   eliminar(pId) {
-    this.socketProvider.delSimpleParticipant(pId, this.roomNo);
+    this.socketProvider.delSimpleParticipant(pId);
   }
 
   async compartir() {

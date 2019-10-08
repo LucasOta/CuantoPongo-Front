@@ -12,10 +12,12 @@ import * as socketIo from 'socket.io-client';
 @Injectable()
 export class SocketProvider {
   private socket;
+  roomID: string;
 
   constructor(public events: Events) {
-    // this.socket = socketIo('http://localhost:3000');
-    this.socket = socketIo('https://cuanto-pongo-back.herokuapp.com');
+    this.socket = socketIo('http://localhost:3000');
+    // this.socket = socketIo('https://cuanto-pongo-back.herokuapp.com');
+
     console.log('Este es el socket');
 
     console.log(this.socket);
@@ -28,13 +30,16 @@ export class SocketProvider {
     // Listening Socket Server
     this.socket.on('RoomCreated', data => console.log(data));
     this.socket.on('updatedSimpleRoom', data => this.updatedRoom(data));
-    this.socket.on('numNewSimpleRoom', data => this.goToRoom(data));
+    this.socket.on('numNewSimpleRoom', roomID => this.roomCreated(roomID));
+
+    this.socket.on('actualSocketIo', data => console.log(data));
   }
 
   //Emmiting events to the Front
-  goToRoom(pData) {
-    this.events.publish('goToRoom', { roomNo: pData });
-    console.log(pData);
+  roomCreated(pRoomID) {
+    this.roomID = pRoomID;
+    this.events.publish('roomCreated', { roomID: pRoomID });
+    console.log('roomNro: ' + pRoomID);
   }
   updatedRoom(pData) {
     this.events.publish('updatedRoom', { room: pData });
@@ -46,25 +51,42 @@ export class SocketProvider {
       socketID: this.socket.id
     });
   }
-  addSimpleParticipant(pRoomNo, pAlias, pPaid) {
+  getUpdatedSimpleRoom() {
+    this.socket.emit('getUpdatedSimpleRoom', this.roomID);
+  }
+  setSimpleRoomName(pRoomID, pName) {
+    this.socket.emit('setSimpleRoomName', {
+      socketID: this.socket.id,
+      roomID: pRoomID,
+      name: pName
+    });
+  }
+  joinSimpleRoom(pRoomID) {
+    this.socket.emit('joinSimpleRoom', pRoomID);
+  }
+  leaveSimpleRoom(pRoomID) {
+    this.socket.emit('leaveSimpleRoom', pRoomID);
+  }
+
+  addSimpleParticipant(pAlias, pPaid) {
     this.socket.emit('newSimpleParticipant', {
-      roomNo: pRoomNo,
+      roomID: this.roomID,
       alias: pAlias,
       paid: parseInt(pPaid)
     });
   }
-  modSimpleParticipant(pRoomNo, pId, pAlias, pPaid) {
+  modSimpleParticipant(pId, pAlias, pPaid) {
     this.socket.emit('modSimpleParticipant', {
-      roomNo: pRoomNo,
+      roomID: this.roomID,
       id: pId,
       alias: pAlias,
       paid: parseInt(pPaid)
     });
   }
-  delSimpleParticipant(pId, pRoomNo) {
+  delSimpleParticipant(pId) {
     this.socket.emit('delSimpleParticipant', {
-      id: pId,
-      roomNo: pRoomNo
+      roomID: this.roomID,
+      id: pId
     });
   }
 }

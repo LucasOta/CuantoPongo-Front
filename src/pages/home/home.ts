@@ -14,6 +14,14 @@ import { SocketProvider } from '../../providers/socket/socket';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  createdRoomID: number;
+  createdRoomName: string;
+
+  loading = this.loadingCtrl.create({
+    spinner: 'dots',
+    content: 'Creando lista'
+  });
+
   constructor(
     public navCtrl: NavController,
     public events: Events,
@@ -23,11 +31,17 @@ export class HomePage {
     private toastCtrl: ToastController,
     public loadingCtrl: LoadingController
   ) {
-    events.subscribe('goToRoom', pRoomNo => {
-      console.log(pRoomNo.roomNo);
+    this.createdRoomID = null;
+    this.createdRoomName = null;
 
-      // this.app.getRootNavs()[0].push('SimpleModePage', { roomNo: pRoomNo });
-      this.navCtrl.push('SimpleModePage', { roomNo: pRoomNo.roomNo });
+    events.subscribe('roomCreated', proomID => {
+      console.log('wesaaaaa, pasé por acá');
+
+      this.createdRoomID = proomID.roomID;
+      if (this.createdRoomName) {
+        this.loading.dismiss();
+        this.goToSimpleRoom();
+      }
     });
   }
 
@@ -35,7 +49,7 @@ export class HomePage {
     console.log('ionViewDidLoad IndexPage');
   }
 
-  async nombreLista() {
+  async nombreLista(goToSimple: boolean) {
     const alert = await this.alertCtrl.create({
       title: '¡Empecemos!',
       subTitle:
@@ -65,20 +79,13 @@ export class HomePage {
               this.showErrorToast('Completar campo nombre', 'top');
               return false;
             } else {
-              let loading = this.loadingCtrl.create({
-                spinner: 'dots',
-                content: 'Loading Please Wait...'
-              });
+              this.createdRoomName = data.nombre;
 
-              loading.present();
-
-              setTimeout(() => {
-                loading.dismiss();
-                // this.socketProvider.newSimpleRoom();
-              }, 3000);
-
-              // this.socketProvider.addSimpleParticipant();
-              // Hay que hacer algo para mandarle el nombre una vez que tenga el número
+              if (!this.createdRoomID) {
+                this.loading.present();
+              } else {
+                this.goToSimpleRoom();
+              }
             }
           }
         }
@@ -89,12 +96,26 @@ export class HomePage {
   }
 
   newSimpleRoom() {
-    // this.nombreLista();
     this.socketProvider.newSimpleRoom();
+    this.nombreLista(true);
+    // this.nombreLista();
   }
   newDiffRoom() {
-    this.nombreLista();
+    this.nombreLista(false);
     // this.socketProvider.newSimpleRoom();
+  }
+
+  //Go To Rooms
+  goToSimpleRoom() {
+    this.socketProvider.setSimpleRoomName(
+      this.createdRoomID,
+      this.createdRoomName
+    );
+
+    this.navCtrl.push('SimpleModePage', {
+      roomID: this.createdRoomID
+      // roomName: this.createdRoomName
+    });
   }
 
   // Toasts

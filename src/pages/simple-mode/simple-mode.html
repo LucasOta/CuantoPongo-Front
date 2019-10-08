@@ -1,11 +1,11 @@
 <ion-content padding>
-    <ng-container *ngIf="roomNo">
+    <ng-container *ngIf="roomID">
         <div class="gradient_1 top-container shadow">
             <button style="display: none" ion-button (click)="volver()">
         <ion-icon name="arrow-dropleft"></ion-icon>
       </button>
-            <!-- <h3>Título de la room {{ roomNo }}</h3> -->
-            <h3>Nombre de la lista</h3>
+            <!-- <h3>Título de la room {{ roomID }}</h3> -->
+            <h3>{{roomName}}</h3>
             <p *ngIf="room">Total ${{ room.total }}</p>
         </div>
     </ng-container>
