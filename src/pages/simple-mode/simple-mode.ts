@@ -52,7 +52,7 @@ export class SimpleModePage {
     });
 
     if (this.navParams.get('roomID')) {
-      this.roomID = parseInt(this.navParams.get('roomID'));
+      this.roomID = this.navParams.get('roomID');
     }
     // if (this.navParams.get('roomName')) {
     //   this.roomName = this.navParams.get('roomName');

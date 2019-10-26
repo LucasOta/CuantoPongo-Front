@@ -31,6 +31,7 @@ export class SocketProvider {
     this.socket.on('RoomCreated', data => console.log(data));
     this.socket.on('updatedSimpleRoom', data => this.updatedRoom(data));
     this.socket.on('numNewSimpleRoom', roomID => this.roomCreated(roomID));
+    this.socket.on('refreshedAdmin', data => this.refreshedAdmin(data));
 
     this.socket.on('actualSocketIo', data => console.log(data));
   }
@@ -43,6 +44,9 @@ export class SocketProvider {
   }
   updatedRoom(pData) {
     this.events.publish('updatedRoom', { room: pData });
+  }
+  refreshedAdmin(pData) {
+    this.events.publish('refreshedAdmin', { data: pData });
   }
 
   //Emmiting events to the Server
@@ -88,5 +92,10 @@ export class SocketProvider {
       roomID: this.roomID,
       id: pId
     });
+  }
+
+  //Admin
+  refreshAdmin() {
+    this.socket.emit('refreshAdmin', this.socket.id);
   }
 }

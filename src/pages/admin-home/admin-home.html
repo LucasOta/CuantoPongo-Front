@@ -1,0 +1,21 @@
+<ion-content padding>
+    <h3>Welcome, admin.</h3>
+
+    <div class="stats">
+        <h5>Sockets connected: {{sockets_connected}}</h5>
+        <hr>
+        <h5>Rooms created: {{rooms_created}}</h5>
+        <hr>
+        <h5>Sockets.io rooms: {{sockets_rooms}}</h5>
+        <hr>
+    </div>
+    <button ion-button color="light" outline>Limpiar room</button>
+
+    <ion-fab right bottom>
+        <button class="gradient_1" (click)="refresh()" ion-fab color="primary">
+                <ion-icon ios="ios-refresh" md="md-refresh"></ion-icon>
+        </button>
+    </ion-fab>
+
+
+</ion-content>
