@@ -4,6 +4,9 @@
     "author": "Ionic Framework",
     "homepage": "http://ionicframework.com/",
     "private": true,
+    "engines": {
+        "node": "10.15.3"
+    },
     "scripts": {
         "start": "ionic-app-scripts serve",
         "clean": "ionic-app-scripts clean",
