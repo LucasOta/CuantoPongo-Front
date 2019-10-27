@@ -21,4 +21,4 @@ app.use(function(req, res, next) {
 
 app.use(express.static('www'));
 app.set('port', process.env.PORT || 5000);
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT, '0.0.0.0');
