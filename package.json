@@ -1,7 +1,7 @@
 {
-    "name": "cuantoPongo",
+    "name": "CuantoPongo",
     "version": "0.0.1",
-    "author": "Ionic Framework",
+    "author": "Lucas Otaño",
     "homepage": "http://ionicframework.com/",
     "private": true,
     "engines": {
@@ -14,7 +14,6 @@
         "lint": "ionic-app-scripts lint"
     },
     "dependencies": {
-        "@ionic/app-scripts": "2.1.4",
         "@angular/animations": "5.2.11",
         "@angular/common": "5.2.11",
         "@angular/compiler": "5.2.11",
@@ -27,6 +26,7 @@
         "@ionic-native/core": "~4.20.0",
         "@ionic-native/splash-screen": "~4.20.0",
         "@ionic-native/status-bar": "~4.20.0",
+        "@ionic/app-scripts": "3.2.2",
         "@ionic/storage": "2.2.0",
         "body-parser": "^1.19.0",
         "cordova-android": "8.1.0",
@@ -38,7 +38,8 @@
         "rxjs": "5.5.11",
         "socket.io-client": "^2.2.0",
         "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.29"
+        "zone.js": "0.8.29",
+        "typescript": "~2.6.2"
     },
     "devDependencies": {
         "@ionic/app-scripts": "3.2.2",
