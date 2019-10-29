@@ -15,8 +15,8 @@ export class SocketProvider {
   roomID: string;
 
   constructor(public events: Events) {
-    // this.socket = socketIo('http://localhost:3000');
-    this.socket = socketIo('https://cuanto-pongo-back.herokuapp.com');
+    this.socket = socketIo('http://localhost:3000');
+    // this.socket = socketIo('https://cuanto-pongo-back.herokuapp.com');
 
     console.log('Este es el socket');
 

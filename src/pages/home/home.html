@@ -1,14 +1,16 @@
 <ion-content padding>
     <div class="navbar">
-        <p>About Us</p>
-        <p>FAQs</p>
+        <button (click)="about()" ion-button clear>About Us</button>
+        <button (click)="faqs()" ion-button clear>FAQs</button>
     </div>
 
     <div class="title_container animated fadeIn">
-        <h1>
-            ¿Cuánto <br /> Pongo?
-        </h1>
-        <p>No más matemática después de la cerveza.</p>
+        <div>
+            <h1>
+                ¿Cuánto <br /> Pongo?
+            </h1>
+            <p>No más matemática después de la cerveza.</p>
+        </div>
     </div>
 
     <div class="mode_container">
@@ -36,5 +38,4 @@
             </ion-row>
         </ion-grid>
     </div>
-
 </ion-content>

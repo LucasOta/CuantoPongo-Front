@@ -101,8 +101,16 @@ export class HomePage {
     // this.nombreLista();
   }
   newDiffRoom() {
-    this.nombreLista(false);
-    // this.socketProvider.newSimpleRoom();
+    this.showSimpleAlert(
+      '¡Estamos trabajando en esto!',
+      'Nos alegra que estés interesado en este modo, dentro de poco tiempo podrás utilizarlo!'
+    );
+  }
+  about() {
+    this.showSimpleAlert('Todavía no hay nada', 'Jeje');
+  }
+  faqs() {
+    this.showSimpleAlert('Todavía no hay nada', 'Jeje');
   }
 
   //Go To Rooms
@@ -146,5 +154,14 @@ export class HomePage {
     });
 
     toast.present();
+  }
+  // Alert
+  showSimpleAlert(pTitle: string, pSubtitle: string) {
+    const alert = this.alertCtrl.create({
+      title: pTitle,
+      subTitle: pSubtitle,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

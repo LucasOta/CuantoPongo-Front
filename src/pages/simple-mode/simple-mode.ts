@@ -7,7 +7,8 @@ import {
   App,
   ViewController,
   AlertController,
-  ToastController
+  ToastController,
+  ItemSliding
 } from 'ionic-angular';
 import { SocketProvider } from '../../providers/socket/socket';
 
@@ -44,7 +45,7 @@ export class SimpleModePage {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {
-    this.roomName = 'Hubo algún problema con el nombre, pero este se la banca';
+    this.roomName = '';
 
     events.subscribe('updatedRoom', pRoom => {
       this.room = pRoom.room;
@@ -81,6 +82,10 @@ export class SimpleModePage {
     this.navCtrl.pop();
     // this.navCtrl.remove(this.viewCtrl.index);
   }
+
+  // share(slidingItem: ItemSliding) {
+  //   slidingItem.startSliding();
+  // }
 
   async agregar() {
     const alert = await this.alertCtrl.create({

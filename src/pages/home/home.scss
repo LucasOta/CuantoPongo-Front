@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa|Quicksand&display=swap');
 page-home {
+    button {
+        z-index: 1 !important;
+        font-weight: 100 !important;
+        color: #fff !important;
+    }
     .navbar {
         position: absolute;
         color: #fff;
@@ -31,8 +36,12 @@ page-home {
     }
     .title_container {
         height: 50vh;
-        padding-top: 25%;
         color: #e1dddd;
+        position: relative;
+    }
+    .title_container div {
+        position: absolute;
+        bottom: 30px;
     }
     .title_container p {
         font-family: 'Quicksand', sans-serif;
@@ -40,11 +49,6 @@ page-home {
     }
     .mode_container {
         height: 50vh;
-        // margin-right: -10%;
-        // padding-right: 5%;
-        // border-top-left-radius: 25px;
-        // background-image: linear-gradient(-45deg, #1FC9FD8C, #FC006182);
-        // box-shadow: -5px 0px 5px #0000004a;
     }
     ion-card {
         position: relative;
